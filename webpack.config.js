@@ -9,6 +9,9 @@ module.exports = [
       path: __dirname + '/build',
       filename: 'server-bundle.js',
     },
+    node: {
+      fs: 'empty'
+    },
     module: {
       rules: [
         {
@@ -29,6 +32,9 @@ module.exports = [
     output: {
       path: __dirname + '/build',
       filename: 'bundle.js',
+    },
+    node: {
+       fs: 'empty'
     },
     module: {
       rules: [

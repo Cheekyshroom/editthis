@@ -2,6 +2,7 @@
 // inline style guides for all the rest (camelCased normal CSS)
 
 export default {
+  white: '#FFFFFF',
   grey: '#F0F0F0',
   button: {
     width: 20,
