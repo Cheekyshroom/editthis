@@ -15,7 +15,6 @@ const ApiRoutes = Routes.filter(route => {
 
 // get autobind ;)
 // Get request data working
-
 const app = express();
 app.set('views', __dirname + '/pages');
 app.set('view engine', 'jsx');
