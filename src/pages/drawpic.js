@@ -7,7 +7,7 @@ class DrawPic extends React.Component {
     return (
       <div>
         You've Reached the Route!!!!!!!!!!!!!!!!!!!
-        <Sheet/>
+        <Sheet imageURL = '/api/images/serve/testKor.jpg'/>
       </div>
     );
   }

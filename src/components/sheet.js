@@ -5,25 +5,37 @@ import Home from '../pages/home';
 import Styles from '../styles';
 
 class Sheet extends React.Component {
-  componentDidMount(){
-          var blank = document.getElementById('myCanvas');
-          var context = blank.getContext('2d');
-          var base_image = new Image();
-          base_image.src = '/api/images/serve/test.jpg';
-          base_image.onload = () => {
-            var width = base_image.naturalWidth;
-            var height = base_image.naturalHeight;
-            var aspRat = height/width;
-            var w = 500;
-            var h = 500*aspRat;
-
-            // blank.width = base_image.naturalWidth/10;
-            // blank.height = base_image.naturalHeight/10;
-            // console.log(blank.width+" width" );
-            // console.log(blank.height+" height");
-            context.drawImage(base_image,0,0,w,h);
-          }
+  constructor() {
+    super();
+    this.Xpoints = [];
+    this.Ypoints = [];
+    this.mouseD = false;
   }
+  componentDidMount(){
+          const canvas = document.getElementById('myCanvas');
+          const context = canvas.getContext('2d');
+          const base_image = new Image();
+          base_image.src = this.props.imageURL;
+          base_image.onload = () => {
+            let width = 500;
+            let height = 500;
+            const aspRat = base_image.naturalWidth/base_image.naturalHeight;
+            if(aspRat>1){
+              width = 500;
+              height = 500*(1/aspRat);  
+            }else{
+              width = 500*(aspRat);
+              height = 500
+            }
+            context.drawImage(base_image,0,0,base_image.naturalWidth,base_image.naturalHeight,0,0,width,height);
+          }
+          canvas.onmousedown = (ev) => {
+            
+          }
+          canvas.onmousemove = (ev) => {
+
+          }
+}
   render() {
 
     return (
