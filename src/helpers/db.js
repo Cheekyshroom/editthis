@@ -12,7 +12,6 @@ const connect = () => {
 };
 
 const query = (connection, query) => {
-  console.log('Connecting to db');
   return new Promise((resolve, error) => {
     return connection.query(query, (err, result) => {
       if (err) {
