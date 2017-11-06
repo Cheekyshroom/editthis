@@ -9,6 +9,10 @@ import Db from './helpers/db';
 //CREATE DATABASE IF NOT EXISTS editthis;
 const DataBase = Db.initialize();
 
+const context = {
+  db: DataBase
+};
+
 const ApiRoutes = Routes.filter(route => {
   return route.isApi;
 });
@@ -16,7 +20,6 @@ const ApiRoutes = Routes.filter(route => {
 // get autobind ;)
 // Get request data working
 // get image caching working
-
 const app = express();
 app.set('views', __dirname + '/pages');
 app.set('view engine', 'jsx');
@@ -73,9 +76,7 @@ ApiRoutes.forEach(route => {
   console.log(`Adding ${route.path} to the api`);
   app.use(
     route.path,
-    route.handler.bind(null, {
-      db: DataBase
-    })
+    route.handler.bind(null, context)
   );
 });
 

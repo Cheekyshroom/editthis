@@ -27,6 +27,7 @@ class App extends React.Component {
         >
           StoreUpload
         </Link>
+          <Link to='/drawpic' style={{}}>DrawPic</Link>
       </div>
     );
   }
