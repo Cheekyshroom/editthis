@@ -5,8 +5,8 @@ import fs from 'fs';
 import Store from './stores/index';
 import Routes from './routes';
 import Db from './helpers/db';
+import BodyParser from 'body-parser';
 
-//CREATE DATABASE IF NOT EXISTS editthis;
 const DataBase = Db.initialize();
 
 const context = {
@@ -18,9 +18,9 @@ const ApiRoutes = Routes.filter(route => {
 });
 
 // get autobind ;)
-// Get request data working
 // get image caching working
 const app = express();
+app.use(BodyParser.json());
 app.set('views', __dirname + '/pages');
 app.set('view engine', 'jsx');
 app.engine('jsx', require('express-react-views').createEngine());
