@@ -1,11 +1,11 @@
 import AddUser from './addUser';
 import GetUsers from './getUsers';
-import Increment from './increment';
 import ImageServe from './imageServe';
+import ImageUpload from './imageUpload';
 
 export default [
   AddUser,
   GetUsers,
-  Increment,
   ImageServe,
+  ImageUpload,
 ];

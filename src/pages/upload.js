@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import Store from '../stores/index';
+import Styles from '../styles';
 
 class Upload extends React.Component {
   constructor(props) {
@@ -71,11 +72,11 @@ class Upload extends React.Component {
       <body style = {{marginTop: '0', paddingTop: '0', textAlign: 'center'}}>
 
       <div>
-      <p>
-      <h1 style = {headerStyle}>
-        Upload an image that you want your friends to edit!
-      </h1>
-      </p>
+        <p>
+          <h1 style = {headerStyle}>
+            Upload an image that you want your friends to edit!
+          </h1>
+        </p>
       </div>
 
       <div className = "previewComponent">

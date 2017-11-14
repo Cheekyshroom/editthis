@@ -1,12 +1,9 @@
 export default {
   isApi: true,
   path: '/api/addUser/:name/:age',
-  handler: (req, res) => {
-    //console.log('Adding', req.params, 'to', users);
-    //users.push({
-    // name: req.params.name,
-    //  age: parseInt(req.params.age, 10)
-    //});
+  handler: (context, req, res) => {
+    console.log('Adding', req.params, 'to users');
+    context.db.query(`INSERT INTO Groups_X_Images values (${parseInt(req.params.name, 10)}, ${parseInt(req.params.age)})`);
     res.end();
   }
 };

@@ -10,11 +10,10 @@ import Store from './stores/index';
 window.onload = () => {
   ReactDOM.render(
     <BrowserRouter>
-      <App {...window.__APP_INITIAL_STATE__}/>
+      <Provider store={Store}>
+        <App {...window.__APP_INITIAL_STATE__}/>
+      </Provider>
     </BrowserRouter>,
     document.getElementById('root')
   );
 };
-        //<App {...window.__APP_INITIAL_STATE__}/>
-      //<Provider store={store}>
-      //</Provider>
