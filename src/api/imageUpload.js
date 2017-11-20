@@ -9,8 +9,8 @@ export default {
       const path = `pictures/${id}.img`;
 
       console.log(`uploading "${req.body.image}" to "${path}"`);
+      console.log(`INSERT INTO Images (path) VALUES ('${path}');`);
 
-          console.log(`INSERT INTO Images (path) VALUES ('${path}');`);
       fs.writeFile(path, req.body.image, err => {
         if (err) {
           throw err;

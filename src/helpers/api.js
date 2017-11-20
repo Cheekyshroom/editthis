@@ -1,6 +1,5 @@
 export default {
   get: (url) => {
-    console.log('before json error');
     return window.fetch(url).then(r => r.json());
   },
   post: (url, body) => {

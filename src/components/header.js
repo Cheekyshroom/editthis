@@ -14,20 +14,9 @@ class App extends React.Component {
         display: 'flex',
         justifyContent: 'space-around',
       }}>
-        <Link
-          to='/upload'
-          style={{}}
-        >
-          Upload
-        </Link>
-        <Link to='/users' style={{}}>Users</Link>
-        <Link
-          to='/storeupload'
-          style={{}}
-        >
-          StoreUpload
-        </Link>  
-          <Link to='/drawpic' style={{}}>DrawPic</Link>
+        <Link to='/upload' style={{}} > Upload </Link>
+        <Link to='/newGroup' style={{}} > New Group </Link>  
+        <Link to='/drawpic' style={{}} > DrawPic </Link>
       </div>
     );
   }

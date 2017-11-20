@@ -46,29 +46,22 @@ const payload = (props) => {
 `);
 };
 
-const rerender = (req, res) => {
-  return () => {
-    console.log(`re-rendering '${req.url}'`);
-    //res.write(payload(Store.getState()));
-  }
-};
-
 // Our main render function, serves our whole webpacked react payload to the user
 const render = (req, res) => {
-  // Special case for /favicon.ico, to stop repeatedly rerendering our package
-  // Can be removed by simply sending an icon
-  
+  // If it's not just a rerender
   if (req) {
-    // If it's not just a rerender
+    // Special case for /favicon.ico, to stop repeatedly rerendering our package
     if (req.url === '/favicon.ico') {
       res.send('');
       return;
     }
     console.log(`rendering '${req.url}'`);
     res.set('Content-Type', 'text/html');
-    //res.set('Connection', 'keep-alive');
-    res.send(payload(Store.getState()));
-    Store.subscribe(rerender(req, res));
+    res.send(payload({
+      params: req.params || {},
+      query: req.query || {},
+      body: req.body || {}
+    }));
   }
 };
 
