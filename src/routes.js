@@ -2,6 +2,7 @@ import Upload from './pages/upload';
 import StoreUpload from './pages/storeupload';
 import Home from './pages/home';
 import DrawPic from './pages/drawpic';
+import Selectpage from './pages/selectpage';
 import ApiRoutes from './api/routes';
 
 export default [
@@ -18,9 +19,13 @@ export default [
     component: StoreUpload,
     path: '/storeupload'
   },
-    {
+  {
     component: DrawPic,
     path: '/drawpic'
+  },
+  { 
+    component: Selectpage,
+    path: '/selectpage'
   },
   ...ApiRoutes
 ];

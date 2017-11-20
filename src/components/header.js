@@ -28,6 +28,8 @@ class App extends React.Component {
           StoreUpload
         </Link>
           <Link to='/drawpic' style={{}}>DrawPic</Link>
+          
+          <Link to='/selectpage' style={{}}>SelectThis</Link>
       </div>
     );
   }
