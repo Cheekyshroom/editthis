@@ -7,7 +7,6 @@ const UsableRoutes = Routes.filter(route => {
   return !route.isApi;
 });
 
-// Route definition component, define new pages here
 class App extends React.Component {
   render() {
     return (
