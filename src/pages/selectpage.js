@@ -110,11 +110,13 @@ class Rector extends React.Component {
     document.addEventListener('mousedown', this.onMouseDown, false);
     document.addEventListener('mousemove', this.onMouseMove, false);
     document.addEventListener('mouseup', this.onMouseUp, false);
+   
   }
   removeMouseEvents() {
     document.removeEventListener('mousedown', this.onMouseDown, false);
     document.removeEventListener('mousemove', this.onMouseMove, false);
     document.removeEventListener('mouseup', this.onMouseUp, false);
+    
   }
 
   onMouseDown = (e) => {
@@ -143,6 +145,7 @@ class Rector extends React.Component {
     }
     this.props.onSelected(rect)
   };
+
   
   render() {
     console.log('render')

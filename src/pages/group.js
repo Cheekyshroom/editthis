@@ -2,6 +2,18 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import Api from '../helpers/api';
 
+import GroupStart from './GroupStart';
+import GroupEditing from './GroupEditing';
+import GroupVoting from './GroupVoting';
+import GroupVictory from './GroupVictory';
+
+const groups = [
+  GroupStart,
+  GroupEditing,
+  GroupVoting,
+  GroupVictory
+];
+
 class Group extends React.Component {
   constructor() {
     super();
@@ -26,12 +38,11 @@ class Group extends React.Component {
     if (this.state.groupData.unloaded) {
       return <div>Loading</div>;
     }
-    // All we have to do here is switch off of groupData.state, and display the right pages
-    return (
-      <div>
-        Loaded!
-      </div>
-    );
+    // All we have to do here is switch off of groupData.stage, and display the right pages
+    const Page = groups[this.state.groupData.group.stage];
+    return Page ?
+      <Page groupData={this.state.groupData}/> :
+      <div> Nonexistent group </div>;
   }
 }
 
