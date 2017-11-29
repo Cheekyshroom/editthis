@@ -1,5 +1,4 @@
 import Home from './pages/home';
-import DrawPic from './pages/drawpic';
 import Group from './pages/group';
 import NewGroup from './pages/newGroup';
 
@@ -18,10 +17,6 @@ export default [
   {
     component: NewGroup,
     path: '/newGroup'
-  },
-  {
-    component: DrawPic,
-    path: '/drawpic'
   },
   ...ApiRoutes
 ];
