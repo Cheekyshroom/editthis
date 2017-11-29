@@ -3,10 +3,10 @@ import Store from '../stores/index';
 
 export default {
   isApi: true,
-  path: '/api/images/upload/:imageID',
+  path: '/api/images/upload',
   handler: (context, req, res) => {
     context.db.query('SELECT max(id) as id FROM Images;').then(([{id}]) => {
-      const path = `pictures/${id}.img`;
+      const path = `pictures/${id || 0}.img`;
 
       console.log(`uploading "${req.body.image}" to "${path}"`);
       console.log(`INSERT INTO Images (path) VALUES ('${path}');`);
@@ -18,7 +18,7 @@ export default {
         context.db.query(
           `INSERT INTO Images (path) VALUES ('${path}');`
         ).then(() => {
-          res.end(`{id: ${id}}`);
+          res.end(`{"id": ${id || 0}}`);
         });
       });
     });

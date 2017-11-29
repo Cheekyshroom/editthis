@@ -6,9 +6,9 @@ export default {
     return window.fetch(url, {
       method: 'post',
       headers: {
-        "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+        "Content-type": "application/json"
       },
-      body
+      body: JSON.stringify(body)
     }).then(r => r && r.json());
   }
 };
