@@ -11,19 +11,22 @@ class GroupEditing extends React.Component {
     this.state = {
       tool: 0,
       penColor: '#AAAAAA'
-    }; 
+    };
+    this.changeCursor = this.changeCursor.bind(this);
+    this.onSliderChange = this.onSliderChange.bind(this); 
   }
 
   changeCursor(cur, num) {
       console.log(this);
       document.body.style.cursor = cur;
-      this.setState({tool: num}, () => {console.log(this.state.tool);
-      });
-  }   
+      this.setState({tool: num});
+  } 
+  
   onSliderChange(color) {
     this.setState({
       penColor: color.hex
     });
+    console.log(color.hex);
   }
 
   render() {
@@ -62,9 +65,12 @@ class GroupEditing extends React.Component {
           <div>
             <Sheet
                 imageURL={`/api/images/serve/${this.props.groupData.group.mainImage}`}
+                color={this.state.penColor}
+                toolNum={this.state.tool}
             />
             <SliderPicker 
-              onChange={this.onSliderChange.bind(this)}
+              color={this.state.penColor}
+              onChange={this.onSliderChange}
             />
           </div>
       </div>
