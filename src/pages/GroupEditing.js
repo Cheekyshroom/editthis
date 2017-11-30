@@ -13,7 +13,8 @@ class GroupEditing extends React.Component {
       penColor: '#AAAAAA'
     };
     this.changeCursor = this.changeCursor.bind(this);
-    this.onSliderChange = this.onSliderChange.bind(this); 
+    this.onSliderChange = this.onSliderChange.bind(this);
+    this.undo = this.undo.bind(this); 
   }
 
   changeCursor(cur, num) {
@@ -21,6 +22,10 @@ class GroupEditing extends React.Component {
       document.body.style.cursor = cur;
       this.setState({tool: num});
   } 
+
+  undo(){
+
+  }
   
   onSliderChange(color) {
     this.setState({
@@ -42,8 +47,9 @@ class GroupEditing extends React.Component {
       backgroundColor: '#f1f1f1',
       width: '40px',
       height: '40px',
-      padding: '10px',
+      padding: '5px 0px',
       margin: '10px',
+      justifyContent: 'center',
       textAlign: 'center',
       lineHeight: '20px',
       fontSize: '20px'
@@ -54,7 +60,7 @@ class GroupEditing extends React.Component {
         <div style = {{display: 'flex', flexDirection:'column'}}>
             <button style = {flexDiv} onClick = {() => this.changeCursor("pointer", 1)}>pen</button>
             <button style = {flexDiv} onClick = {() => this.changeCursor("crosshair", 2)}>fill</button>
-            <button style = {flexDiv}>3</button>
+            <button style = {flexDiv} onClick = {() => this.undo()}>undo</button>
             <button style = {flexDiv}>4</button>
             <button style = {flexDiv}>5</button>
             <button style = {flexDiv}>6</button>
