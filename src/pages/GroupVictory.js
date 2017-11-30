@@ -7,8 +7,12 @@ class GroupVictory extends React.Component {
     const group = this.props.groupData.group;
     return (
       <div>
-        Group Victory Page
-        <img src={`/api/images/serve/${group.winImage}`}/>
+        <div style={{textAlign: 'center'}}>
+          This is the winning picture!
+        </div>
+        <div style={{display: 'flex', justifyContent: 'center'}}>
+          <img src={`/api/images/serve/${group.winImage}`}/>
+        </div>
       </div>
     );
   }
