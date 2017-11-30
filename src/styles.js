@@ -14,4 +14,21 @@ export default {
     fontSize: '22px',
     color: 'white'
   },
+  containerStyle: {
+    width: '30%',
+    'flex-direction': 'row',
+    'flex-wrap': 'wrap',
+    backgroundColor: 'DodgerBlue'
+  },
+  flexDiv: {
+    backgroundColor: '#f1f1f1',
+    width: '40px',
+    height: '40px',
+    padding: '5px 0px',
+    margin: '10px',
+    justifyContent: 'center',
+    textAlign: 'center',
+    lineHeight: '20px',
+    fontSize: '20px'
+  }
 };
