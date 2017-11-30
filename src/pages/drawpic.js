@@ -4,7 +4,6 @@ import Sheet from '../components/sheet';
 import {SliderPicker} from 'react-color';
 
 class DrawPic extends React.Component {
-
   render() {
     return (
       <div>

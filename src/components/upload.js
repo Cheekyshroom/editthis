@@ -38,7 +38,7 @@ class Upload extends React.Component {
       });
     });
 
-    reader.readAsDataURL(file);
+    reader.readAsBinaryString(file);
   }
 
   render() {

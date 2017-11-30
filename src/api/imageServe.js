@@ -13,11 +13,11 @@ export default {
       const path = results[0].path;
       console.log(`path for ${id} is "${path}"`);
       fs.readFile(path, (err, data) => {
-        console.log(err);
         if (err) {
+          console.log('error', err);
           return res.end('{"error": true}');
         } 
-        res.writeHead(200, {'Content-Type': 'image/jpeg'});
+        res.writeHead(200, {'content-type': results[0].mediaType});
         res.end(data)
       });
     });

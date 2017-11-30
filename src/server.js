@@ -17,7 +17,6 @@ const ApiRoutes = Routes.filter(route => {
   return route.isApi;
 });
 
-// get autobind ;)
 // get image caching working
 const app = express();
 app.use(BodyParser.json({limit: '50mb'}));

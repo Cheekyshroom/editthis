@@ -6,10 +6,12 @@ import Upload from '../components/upload';
 class GroupStart extends React.Component {
   onImageUpload(image) {
     const group = this.props.groupData.group;
-    console.log(`Incrementing stage from ${group.stage} to ${group.stage + 1}`);
-    Api.get(`/api/updateStage/${group.obfuscatedId}/${group.stage + 1}`)
+    Api.get(`/api/setMainImage/${group.obfuscatedId}/${image.id}`)
     .then(() => {
-      window.location.assign(window.location.href);
+      Api.get(`/api/updateStage/${group.obfuscatedId}/${group.stage + 1}`)
+      .then(() => {
+        window.location.assign(window.location.href);
+      });
     });
   }
 
