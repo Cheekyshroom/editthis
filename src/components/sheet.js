@@ -1,14 +1,14 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import Styles from '../styles';
-import tools from '../helpers/pen';
+import pen from '../helpers/pen';
 
 class Sheet extends React.Component {
   constructor() {
     super();
     this.args = {actions:[],
                  dragging: false,
-                 lineNum: 0,
+                 latestActionNum: 0,
                  thickns: 10,
                  natWidth:0,
                  natHeight:0,
@@ -21,7 +21,6 @@ class Sheet extends React.Component {
                  image:null,
                 }
   }
-
 
   componentDidMount(){
     this.args.canvas = document.getElementById('myCanvas');
@@ -61,35 +60,15 @@ class Sheet extends React.Component {
         y: ev.clientY - rect.top
       };
   }
-  
+
   //when mouse held down starts line
   handleMouseDown(ev){
-    console.log(tools);
-    tools.penMouseDown(this, ev);
+      pen.penMouseDown(this, ev);  
+    console.log("handle mouse down");
   }
-
-  // penMouseDown(ev){
-  //   const mousePos = this.getMousePos(this.args.canvas, ev);
-  //   const lineStart = {type: 'line',
-  //                      points: [],
-  //                      color: this.props.color};
-  //   lineStart.points.push(mousePos);
-  //   this.args.actions.push(lineStart);
-  //   this.args.lineNum = this.args.actions.length - 1;
-  //   this.args.dragging = true;
-  //   this.draw(this.args.context,this.args.actions);
-  // }
 
   handleMouseMove(ev){
-     this.penMouseMove(ev);
-  }
-
-  penMouseMove(ev){
-    if(this.args.dragging){
-      const mousePos = this.getMousePos(this.args.canvas, ev);
-      this.args.actions[this.args.lineNum].points.push(mousePos); 
-      this.draw(this.args.context,this.args.actions);
-    }
+     pen.penMouseMove(this, ev);
   }
 
   handleMouseUp(){
@@ -112,54 +91,6 @@ class Sheet extends React.Component {
         this.args.cornerX, this.args.cornerY,this.args.width,this.args.height
     );
   }
-//DELETE IF NEVER USED
-  drawLines(context,actions){
-    let lineNum = 0;
-    context.lineWidth = this.args.thickns;
-    //draw every line
-    for(lineNum; lineNum<actions.length; lineNum++){
-      //start at first point in line
-      let startX = actions[lineNum].points[0].x;
-      let startY = actions[lineNum].points[0].y;
-      this.dot(startX, startY, context, actions[lineNum].color);
-      context.beginPath();
-      context.moveTo(startX, startY);
-      let pointNum = 1;
-      context.strokeStyle = actions[lineNum].color;
-      for (pointNum; pointNum<actions[lineNum].points.length; pointNum++){
-      //line to every next pointNum in line
-        context.lineTo(
-          actions[lineNum].points[pointNum].x, actions[lineNum].points[pointNum].y
-        );
-      }
-      //this.dot(actions[lineNum].points[pointNum-1].x, actions[lineNum].points[pointNum-1].y, context, actions[lineNum].color);
-      context.stroke();
-    }
-  }
-
-  drawSingleLine(points, color, context,){
-      console.log("drawSingleLine");
-      console.log(points);
-      console.log(color);
-      let startX = points[0].x;
-      let startY = points[0].y;
-      this.dot(startX, startY, context, color);
-      context.lineWidth = this.args.thickns;
-      context.beginPath();
-      context.moveTo(startX, startY);
-      let pointNum = 1;
-      context.strokeStyle = color;
-      for (pointNum; pointNum<points.length; pointNum++){
-      //line to every next pointNum in line
-        context.lineTo(
-          points[pointNum].x, points[pointNum].y
-        );
-      }
-      context.stroke();
-      this.dot(points[pointNum-1].x, points[pointNum-1].y, context, color);
-     
-  }
-  
 
   //draws the image with lines
   draw(context, actions){
@@ -168,13 +99,12 @@ class Sheet extends React.Component {
     let actionNum = 0;
     for(actionNum; actionNum<actions.length; actionNum++){
       if(actions[actionNum].type == 'line'){
-        this.drawSingleLine(actions[actionNum].points, actions[actionNum].color, context);
+        pen.drawSingleLine(actions[actionNum].points, actions[actionNum].color, context, this);
       }
     }
   }
 
   render() {
-
     return (
       <div style={{
         width: '100%',

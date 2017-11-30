@@ -31,11 +31,11 @@ export default //withRouter(({history}) => (
         color: 'white'
       };
       return(
-        <body style = {{textAlign: 'center'}}>
-        <div style = {{lineHeight:'450px'}}>
-          <button style = {buttonStyle} onClick={this.onGroupCreate.bind(this)}>Create Group</button>
+        <div style = {{textAlign: 'center'}}>
+          <div style = {{lineHeight:'450px'}}>
+            <button style = {buttonStyle} onClick={this.onGroupCreate.bind(this)}>Create Group</button>
+          </div>
         </div>
-        </body>
       );
     }
   };
