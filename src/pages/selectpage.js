@@ -52,11 +52,14 @@ class SelectPage extends React.Component {
   }
 }
 
+
+
 class Rector extends React.Component {
   static defaultProps = {
     width: 320,
     height: 200,
     strokeStyle: '#F00',
+    fillStyle: '#F00',
     lineWidth: 1,
     onSelected: () => {},
   };
@@ -78,6 +81,7 @@ class Rector extends React.Component {
     this.ctx = this.canvas.getContext('2d')
     this.ctx.strokeStyle = this.props.strokeStyle
     this.ctx.lineWidth = this.props.lineWidth
+    this.ctx.fillStyle = this.props.fillStyle
     this.addMouseEvents()
   }
 
@@ -89,7 +93,7 @@ class Rector extends React.Component {
       return
     }
     
-    this.ctx.clearRect(0, 0, this.props.width, this.props.height)
+    this.ctx.clearRect(0, 0, this.props.width, this.props.height) 
     if (this.isDrag) {      
       const rect = {
         x: this.startX,
@@ -98,9 +102,13 @@ class Rector extends React.Component {
         h: this.curY - this.startY,
       }
       this.ctx.strokeRect(rect.x, rect.y, rect.w, rect.h)  
+      //this.ctx.fillRect(rect.x, rect.y, rect.w, rect.h);
+      
     }  
     this.isDirty = false
   };
+
+ 
 
   componentWillUnmount() {
     this.removeMouseEvents()
@@ -116,7 +124,7 @@ class Rector extends React.Component {
     document.removeEventListener('mousedown', this.onMouseDown, false);
     document.removeEventListener('mousemove', this.onMouseMove, false);
     document.removeEventListener('mouseup', this.onMouseUp, false);
-    
+
   }
 
   onMouseDown = (e) => {
@@ -124,6 +132,7 @@ class Rector extends React.Component {
     this.curX = this.startX = e.offsetX
     this.curY = this.startY = e.offsetY
     requestAnimationFrame(this.updateCanvas)
+    
   };
 
   onMouseMove = (e) => {
@@ -136,6 +145,7 @@ class Rector extends React.Component {
   onMouseUp = (e) => {
     this.isDrag = false
     this.isDirty = true
+
     
     const rect = {
       x: Math.min(this.startX, this.curX),
@@ -144,7 +154,9 @@ class Rector extends React.Component {
       h: Math.abs(e.offsetY - this.startY),
     }
     this.props.onSelected(rect)
+
   };
+
 
   
   render() {
