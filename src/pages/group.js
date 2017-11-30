@@ -47,7 +47,7 @@ class Group extends React.Component {
     // Pick the page we want to display, and display it
     const Page = groups[group.stage];
     return Page ?
-      <div>
+      <div style={{padding: '5px'}}>
         {(group.stage != 0 && group.stage != 3) && <Timer endTime={group.nextStage}/>}
         <Page
           groupData={this.state.groupData}

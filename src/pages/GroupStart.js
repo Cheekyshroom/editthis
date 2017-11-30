@@ -16,14 +16,17 @@ class GroupStart extends React.Component {
   }
 
   render() {
-    console.log("Data is", this.props.groupData);
     return (
       <div>
-        You just created a new group! Share this link with friends to get started :)
-        <div>
-          {window.location.href}
+        <div style={{textAlign: 'center'}}>
+          You just created a new group! Share this link with friends to get started :)
         </div>
-        <Upload onUpload={this.onImageUpload.bind(this)}/>
+        <div style={{padding: '10px 30px'}}>
+          <div style={{padding: '10px', textAlign: 'center'}}>
+            {window.location.href}
+          </div>
+          <Upload onUpload={this.onImageUpload.bind(this)}/>
+        </div>
       </div>
     );
   }

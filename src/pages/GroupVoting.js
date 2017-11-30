@@ -29,16 +29,18 @@ class GroupVoting extends React.Component {
     return (
       <div>
         Group Voting Page
-        {this.props.groupData.images.map((image, i) => {
-          return (
-            <img
-              src={`/api/images/serve/${image.imageId}`}
-              key={`vote-${i}`}
-              onClick={() => Api.get(`/api/images/vote/${image.imageId}`)}
-              style={{cursor: 'pointer'}}
-            />
-          );
-        })};
+        <div>
+          {this.props.groupData.images.map((image, i) => {
+            return (
+              <img
+                src={`/api/images/serve/${image.imageId}`}
+                key={`vote-${i}`}
+                onClick={() => Api.get(`/api/images/vote/${image.imageId}`)}
+                style={{cursor: 'pointer'}}
+              />
+            );
+          })};
+        </div>
       </div>
     );
   }

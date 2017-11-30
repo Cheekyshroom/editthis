@@ -42,29 +42,14 @@ class Upload extends React.Component {
   }
 
   render() {
-    console.log('props', window.__APP_INITIAL_STATE__);
-
-    let {image} = this.state;
-    let imagePreview = null;
-    if (image) {
-      imagePreview = (<img src = {image} />);
-    }
-    else{
-      imagePreview = (<div className = "noImageText"> Please select an image</div>);
-    }
-
     return (
-      <div>
+      <div style={{display: 'flex', justifyContent: 'center'}}>
         <form onSubmit = {(e) => this.handleSubmit(e)}>
           <input className = "imgInput"
             type = "file" onChange = {(e) => this.changeImage(e)} />
           
           <button style = {Styles.buttonStyle}>Upload an image!</button>
         </form>
-
-        <div className = "imgPreview" style = {{margin: '10px', padding: '10px'}}>
-          {imagePreview}
-        </div>
       </div>
     );
   }
