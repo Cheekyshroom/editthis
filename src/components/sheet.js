@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import Styles from '../styles';
+import Api from '../helpers/api';
 
 class Sheet extends React.Component {
   constructor() {
@@ -123,8 +124,42 @@ class Sheet extends React.Component {
     }
   }
 
-  render() {
+  shouldComponentUpdate(nextProps) {
+    return false;
+  }
 
+  nextStage() {
+    this.args.canvas.toBlob(blob => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        Api.post(
+          '/api/images/upload',
+          {image: reader.result}
+        ).then(r => {
+          const group = this.props.groupData.group;
+          Api.get(`/api/addImage/${group.obfuscatedId}/${r.id}`)
+          .then(() => {
+            console.log(`Incrementing stage from ${group.stage} to ${group.stage + 1}`);
+            Api.get(`/api/updateStage/${group.obfuscatedId}/${group.stage + 1}`)
+            .then(() => {
+              window.setTimeout(() => window.location.assign(window.location.href), 2000);
+            });
+          });
+        });
+      };
+      reader.readAsBinaryString(blob);
+    }, 'image/jpeg', 1);
+  }
+
+  render() {
+    const group = this.props.groupData.group;
+    const currentTime = Math.floor(new Date().valueOf() / 1000);
+    if (group.stage != 0 && group.stage != 3) {
+      window.setTimeout(
+        this.nextStage.bind(this),
+        (group.nextStage - currentTime) * 1000
+      );
+    }
     return (
       <div style={{
         width: '100%',

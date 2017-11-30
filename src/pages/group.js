@@ -7,6 +7,8 @@ import GroupEditing from './GroupEditing';
 import GroupVoting from './GroupVoting';
 import GroupVictory from './GroupVictory';
 
+import Timer from '../components/timer';
+
 const groups = [
   GroupStart,
   GroupEditing,
@@ -23,15 +25,6 @@ class Group extends React.Component {
       },
       timer: false
     }
-  }
-
-  nextStage() {
-    const group = this.state.groupData.group;
-    console.log(`Incrementing stage from ${group.stage} to ${group.stage + 1}`);
-    Api.get(`/api/updateStage/${group.obfuscatedId}/${group.stage + 1}`)
-    .then(() => {
-      window.location.assign(window.location.href);
-    });
   }
 
   componentDidMount() {
@@ -51,17 +44,15 @@ class Group extends React.Component {
       return <div>Couldn't find the group you're looking for</div>;
     }
     const group = this.state.groupData.group;
-    if (!this.state.timer && group.stage != 0 && group.stage != 3) {
-      const currentTime = Math.floor(new Date().valueOf() / 1000);
-      window.setTimeout(
-        this.nextStage.bind(this),
-        (group.nextStage - currentTime) * 1000
-      );
-    }
-    // Pick the page we want to display, and uh, display it :)
+    // Pick the page we want to display, and display it
     const Page = groups[group.stage];
     return Page ?
-      <Page groupData={this.state.groupData}/> :
+      <div>
+        {(group.stage != 0 && group.stage != 3) && <Timer endTime={group.nextStage}/>}
+        <Page
+          groupData={this.state.groupData}
+        />
+      </div> :
       <div> Nonexistent group </div>;
   }
 }

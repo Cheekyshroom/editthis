@@ -1,6 +1,6 @@
 const stageTimes = [
   999999, // irrelevant for starting stage (triggered by image selection)
-  300, //
+  30, //
   20, //
   999999, // irrelevant for victory stage
 ];

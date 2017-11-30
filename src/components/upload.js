@@ -3,8 +3,8 @@ import Styles from '../styles';
 import Api from '../helpers/api';
 
 class Upload extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       image: '',
       loaded: false

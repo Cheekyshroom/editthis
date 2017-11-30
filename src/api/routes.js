@@ -6,6 +6,8 @@ import UpdateStage from './updateStage';
 import SetMainImage from './setMainImage';
 import SetWinImage from './setWinImage';
 import VoteForImage from './voteForImage';
+import AddImageToGroup from './addImageToGroup';
+import WinningImage from './winningImage';
 
 export default [
   ImageServe,
@@ -16,4 +18,6 @@ export default [
   SetMainImage,
   SetWinImage,
   VoteForImage,
+  AddImageToGroup,
+  WinningImage,
 ];

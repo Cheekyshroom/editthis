@@ -16,6 +16,7 @@ class GroupEditing extends React.Component {
         Group Editing Page
         <Sheet
           imageURL={`/api/images/serve/${this.props.groupData.group.mainImage}`}
+          groupData={this.props.groupData}
         />
         <SliderPicker onChange={this.onSliderChange.bind(this)}/>
       </div>

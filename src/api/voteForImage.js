@@ -13,9 +13,7 @@ export default {
       context.db.query(
         `UPDATE Images SET votes = ${votes + 1} WHERE id = ${id};`
       ).then(r => {
-        res.end({
-          success: true
-        });
+        res.end('{"success": true}');
       });
     });
   }
