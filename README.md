@@ -3,11 +3,14 @@ CMPS 115 Photoshop battle app
 
 After cloning:
 ```
-npm i
+- Install mysql
+- npm i
+- Fire up mysql
+- run reset.sh
+- npm run pack
 ```
 
 To run:
 ```
-npm run pack
 npm start
 ```
