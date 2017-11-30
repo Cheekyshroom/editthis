@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import Styles from '../styles';
 import pen from '../helpers/pen';
+import lasso from '../helpers/lasso';
 
 class Sheet extends React.Component {
   constructor() {
@@ -49,7 +50,7 @@ class Sheet extends React.Component {
     console.log("mounted");
   }
 
-  shouldComponenetUpdate(){
+  shouldComponentUpdate(){
     return false;
   }
   //returns mouse position relative to canvas
@@ -60,24 +61,32 @@ class Sheet extends React.Component {
         y: ev.clientY - rect.top
       };
   }
-
   //when mouse held down starts line
   handleMouseDown(ev){
-      pen.penMouseDown(this, ev);  
-    console.log("handle mouse down");
+        console.log("pen mouse down");
+        if(this.props.toolNum!=0)
+        pen.penMouseDown(this, ev);
+
   }
 
   handleMouseMove(ev){
+ 
+      //console.log("pen mouse move");
      pen.penMouseMove(this, ev);
+    
   }
 
   handleMouseUp(){
     this.args.dragging = false;
+    if(this.props.toolNum == 2){
+      this.args.actions[this.args.actions.length-1].type = 'lasso';
+      this.draw(this.args.context, this.args.actions);
+    }
   }
 
   dot(x, y, context, color){
-    console.log("dot");
-    console.log("color   " + color);
+    //console.log("dot");
+    //console.log("color   " + color);
     context.beginPath();
     context.arc(x, y, this.args.thickns/2, 0, 2 * Math.PI);
     context.fillStyle = color;
@@ -100,6 +109,9 @@ class Sheet extends React.Component {
     for(actionNum; actionNum<actions.length; actionNum++){
       if(actions[actionNum].type == 'line'){
         pen.drawSingleLine(actions[actionNum].points, actions[actionNum].color, context, this);
+      }
+      else if(actions[actionNum].type == 'lasso'){
+        lasso.drawSingleLasso(actions[actionNum].points, actions[actionNum].color, context, this);
       }
     }
   }

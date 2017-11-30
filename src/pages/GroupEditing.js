@@ -18,7 +18,7 @@ class GroupEditing extends React.Component {
   }
 
   changeCursor(cur, num) {
-      console.log(this);
+      console.log("TOOOOOOOOOOOL    " + num);
       document.body.style.cursor = cur;
       this.setState({tool: num});
   } 
