@@ -1,7 +1,5 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import Upload from '../pages/upload';
-import Home from '../pages/home';
 import Styles from '../styles';
 
 class Sheet extends React.Component {

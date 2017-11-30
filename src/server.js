@@ -17,10 +17,9 @@ const ApiRoutes = Routes.filter(route => {
   return route.isApi;
 });
 
-// get autobind ;)
 // get image caching working
 const app = express();
-app.use(BodyParser.json());
+app.use(BodyParser.json({limit: '50mb'}));
 app.set('views', __dirname + '/pages');
 app.set('view engine', 'jsx');
 app.engine('jsx', require('express-react-views').createEngine());

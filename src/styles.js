@@ -4,8 +4,14 @@
 export default {
   white: '#FFFFFF',
   grey: '#F0F0F0',
-  button: {
-    width: 20,
-    height: 10
-  }
+  buttonStyle: {
+    height: 50,
+    width: 300,
+    backgroundColor:'#00BFFF',
+    borderColor:'#00BFFF',
+    alignSelf: 'center',
+    justifyContent:'center',
+    fontSize: '22px',
+    color: 'white'
+  },
 };
