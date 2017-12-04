@@ -13,11 +13,11 @@ class GroupEditing extends React.Component {
     this.state = {
       tool: 0,
       penColor: '#AAAAAA',
-      thickns:10,
+      thickness:10,
     };
     this.changeCursor = this.changeCursor.bind(this);
     this.onColorChange = this.onColorChange.bind(this);
-    this.onThicknsChange = this.onThicknsChange.bind(this);
+    this.onthicknessChange = this.onthicknessChange.bind(this);
   }
 
   changeCursor(cur, num) {
@@ -31,9 +31,9 @@ class GroupEditing extends React.Component {
     });
   }
 
-  onThicknsChange(thickns){
+  onthicknessChange(thickness){
     this.setState({
-      thickns:thickns.target.value,
+      thickness:thickness.target.value,
     })
   }
 
@@ -44,19 +44,13 @@ class GroupEditing extends React.Component {
           <div style = {{display: 'flex', flexDirection:'column'}}>
             <button style = {Styles.flexDiv} onClick = {() => this.changeCursor("pointer", 1)}>pen</button>
             <button style = {Styles.flexDiv} onClick = {() => this.changeCursor("crosshair", 2)}>fill</button>
-            <button style = {Styles.flexDiv} onClick = {() => this.undo()}>undo</button>
-            <button style = {Styles.flexDiv}>4</button>
-            <button style = {Styles.flexDiv}>5</button>
-            <button style = {Styles.flexDiv}>6</button>
-            <button style = {Styles.flexDiv}>7</button>
-            <button style = {Styles.flexDiv}>8</button>
           </div>
 
           Group Editing Page
           <Sheet
             imageURL={`/api/images/serve/${this.props.groupData.group.mainImage}`}
             color={this.state.penColor}
-            thickns={this.state.thickns}
+            thickness={this.state.thickness}
             toolNum={this.state.tool}
             groupData={this.props.groupData}
           />
@@ -66,7 +60,11 @@ class GroupEditing extends React.Component {
             color={this.state.penColor}
             onChange={this.onColorChange}
           />
-          <Slider value={this.state.thickns} onChange={this.onThicknsChange}/>
+          <p>Thickness</p>
+          <Slider 
+            value={this.state.thickness}
+            onChange={this.onthicknessChange}
+          />
         </div>
       </div>
     );
