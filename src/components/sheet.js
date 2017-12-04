@@ -4,15 +4,15 @@ import Styles from '../styles';
 import Api from '../helpers/api';
 import pen from '../helpers/pen';
 import lasso from '../helpers/lasso';
+import Slider from './slider';
 
 class Sheet extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.args = {actions:[],
-                 redoActions:[],
                  dragging: false,
-                 latestActionNum: null,
-                 thickns: 10,
+                 latestActionNum: -1,
+                 thickns: this.props.thickns,
                  natWidth:0,
                  natHeight:0,
                  width:0,
@@ -24,7 +24,11 @@ class Sheet extends React.Component {
                  image:null,
                  lastX:0,
                  lastY:0,
-                }
+                };
+    this.handleMouseDown = this.handleMouseDown.bind(this);
+    this.handleMouseUp = this.handleMouseUp.bind(this);
+    this.handleMouseMove = this.handleMouseMove.bind(this);
+    this.undo = this.undo.bind(this);
   }
 
   componentDidMount(){
@@ -107,14 +111,14 @@ class Sheet extends React.Component {
       console.log(actions[i]);
     }
     this.drawBase(this.args);
-    if(this.args.latestActionNum!=null){
+    if(this.args.latestActionNum>-1){
             let actionNum = 0;
       for(actionNum; actionNum<this.args.latestActionNum; actionNum++){
         if(actions[actionNum].type == 'line'){
-          pen.drawSingleLine(actions[actionNum].points, actions[actionNum].color, context, this);
+          pen.drawSingleLine(actions[actionNum], context, this);
         }
         else if(actions[actionNum].type == 'lasso'){
-          lasso.drawSingleLasso(actions[actionNum].points, actions[actionNum].color, context, this);
+          lasso.drawSingleLasso(actions[actionNum], context, this);
         }
       }
     }
@@ -125,14 +129,11 @@ class Sheet extends React.Component {
   }
 
   undo(){
-    if(this.args.latestActionNum>0){
+    if(this.args.latestActionNum>-1){
       this.args.latestActionNum--;
-    }else{
-      this.args.latestActionNum = null;
     }
     this.draw(this.args.context, this.args.actions);
   }
-
 
   nextStage() {
     this.args.canvas.toBlob(blob => {
@@ -181,15 +182,15 @@ class Sheet extends React.Component {
           id="myCanvas" 
           height={500} 
           width={500} 
-          onMouseDown={this.handleMouseDown.bind(this)}
-          onMouseMove={this.handleMouseMove.bind(this)}
-          onMouseUp={this.handleMouseUp.bind(this)}
+          onMouseDown={this.handleMouseDown}
+          onMouseMove={this.handleMouseMove}
+          onMouseUp={this.handleMouseUp}
           style={{
             display : 'block',
             margin: 'auto',
           }}/>
           <button  
-            onClick={this.undo.bind(this)}
+            onClick={this.undo}
           >undo</button>
       </div>
     );
