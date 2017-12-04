@@ -4,14 +4,15 @@ import Styles from '../styles';
 import Api from '../helpers/api';
 import pen from '../helpers/pen';
 import lasso from '../helpers/lasso';
+import Slider from './slider';
 
 class Sheet extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.args = {actions:[],
                  dragging: false,
-                 latestActionNum: 0,
-                 thickns: 10,
+                 latestActionNum: -1,
+                 thickns: this.props.thickns,
                  natWidth:0,
                  natHeight:0,
                  width:0,
@@ -21,7 +22,13 @@ class Sheet extends React.Component {
                  context:null,
                  canvas:null,
                  image:null,
-                }
+                 lastX:0,
+                 lastY:0,
+                };
+    this.handleMouseDown = this.handleMouseDown.bind(this);
+    this.handleMouseUp = this.handleMouseUp.bind(this);
+    this.handleMouseMove = this.handleMouseMove.bind(this);
+    this.undo = this.undo.bind(this);
   }
 
   componentDidMount(){
@@ -46,7 +53,7 @@ class Sheet extends React.Component {
         this.args.height = 500;
         this.args.cornerX  = (500-this.args.width)/2;
       }
-      this.drawBase(this.args.context);
+      this.drawBase(this.args);
     }
     console.log("mounted");
   }
@@ -61,14 +68,15 @@ class Sheet extends React.Component {
   }
   //when mouse held down starts line
   handleMouseDown(ev){
-    console.log("pen mouse down");
-    if(this.props.toolNum!=0)
-    pen.penMouseDown(this, ev);
+    console.log("toolnum   "+this.props.toolNum);
+    if(this.props.toolNum!=0){
+      pen.penMouseDown(this, ev);
+    }
   }
 
   handleMouseMove(ev){
     //console.log("pen mouse move");
-    pen.penMouseMove(this, ev);
+    pen.penMouseMove(this ,this.args, ev);
   }
 
   handleMouseUp(){
@@ -88,31 +96,43 @@ class Sheet extends React.Component {
     context.fill();
   }
 
-  drawBase(context){
-     context.drawImage(
-        this.args.image,
-        0,0,this.args.natWidth,this.args.natHeight,
-        this.args.cornerX, this.args.cornerY,this.args.width,this.args.height
+  drawBase(args){
+     args.context.drawImage(
+        args.image,
+        0,0,args.natWidth,args.natHeight,
+        args.cornerX, args.cornerY,args.width,args.height
     );
   }
 
   //draws the image with lines
   draw(context, actions){
     console.log("main draw function");
-    this.drawBase(context);
-    let actionNum = 0;
-    for(actionNum; actionNum<actions.length; actionNum++){
-      if(actions[actionNum].type == 'line'){
-        pen.drawSingleLine(actions[actionNum].points, actions[actionNum].color, context, this);
-      }
-      else if(actions[actionNum].type == 'lasso'){
-        lasso.drawSingleLasso(actions[actionNum].points, actions[actionNum].color, context, this);
+    for(let i =0;i<actions.length;i++){
+      console.log(actions[i]);
+    }
+    this.drawBase(this.args);
+    if(this.args.latestActionNum>-1){
+            let actionNum = 0;
+      for(actionNum; actionNum<this.args.latestActionNum; actionNum++){
+        if(actions[actionNum].type == 'line'){
+          pen.drawSingleLine(actions[actionNum], context, this);
+        }
+        else if(actions[actionNum].type == 'lasso'){
+          lasso.drawSingleLasso(actions[actionNum], context, this);
+        }
       }
     }
   }
 
   shouldComponentUpdate(nextProps) {
     return false;
+  }
+
+  undo(){
+    if(this.args.latestActionNum>-1){
+      this.args.latestActionNum--;
+    }
+    this.draw(this.args.context, this.args.actions);
   }
 
   nextStage() {
@@ -162,13 +182,16 @@ class Sheet extends React.Component {
           id="myCanvas" 
           height={500} 
           width={500} 
-          onMouseDown={this.handleMouseDown.bind(this)}
-          onMouseMove={this.handleMouseMove.bind(this)}
-          onMouseUp={this.handleMouseUp.bind(this)}
+          onMouseDown={this.handleMouseDown}
+          onMouseMove={this.handleMouseMove}
+          onMouseUp={this.handleMouseUp}
           style={{
             display : 'block',
             margin: 'auto',
           }}/>
+          <button  
+            onClick={this.undo}
+          >undo</button>
       </div>
     );
   }

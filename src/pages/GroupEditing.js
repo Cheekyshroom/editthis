@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import Api from '../helpers/api';
 import Sheet from '../components/sheet';
+import Slider from '../components/slider'
 import {SliderPicker} from 'react-color';
 import Styles from '../styles';
 
@@ -11,11 +12,12 @@ class GroupEditing extends React.Component {
     super(props);
     this.state = {
       tool: 0,
-      penColor: '#AAAAAA'
+      penColor: '#AAAAAA',
+      thickns:10,
     };
     this.changeCursor = this.changeCursor.bind(this);
-    this.onSliderChange = this.onSliderChange.bind(this);
-    this.undo = this.undo.bind(this); 
+    this.onColorChange = this.onColorChange.bind(this);
+    this.onThicknsChange = this.onThicknsChange.bind(this);
   }
 
   changeCursor(cur, num) {
@@ -23,15 +25,16 @@ class GroupEditing extends React.Component {
     this.setState({tool: num});
   } 
 
-  undo(){
-
-  }
-  
-  onSliderChange(color) {
+  onColorChange(color) {
     this.setState({
       penColor: color.hex
     });
-    console.log(color.hex);
+  }
+
+  onThicknsChange(thickns){
+    this.setState({
+      thickns:thickns.target.value,
+    })
   }
 
   render() {
@@ -53,6 +56,7 @@ class GroupEditing extends React.Component {
           <Sheet
             imageURL={`/api/images/serve/${this.props.groupData.group.mainImage}`}
             color={this.state.penColor}
+            thickns={this.state.thickns}
             toolNum={this.state.tool}
             groupData={this.props.groupData}
           />
@@ -60,8 +64,9 @@ class GroupEditing extends React.Component {
         <div>
           <SliderPicker
             color={this.state.penColor}
-            onChange={this.onSliderChange.bind(this)}
+            onChange={this.onColorChange}
           />
+          <Slider value={this.state.thickns} onChange={this.onThicknsChange}/>
         </div>
       </div>
     );
