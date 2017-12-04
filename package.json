@@ -2,7 +2,8 @@
   "scripts": {
     "build": "babel src -d build",
     "start": "node build/server-bundle.js",
-    "pack": "webpack"
+    "pack": "webpack",
+    "test": "bash src/tests/test.sh"
   },
   "dependencies": {
     "babel-cli": "^6.26.0",
