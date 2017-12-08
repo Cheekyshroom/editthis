@@ -49,5 +49,30 @@ module.exports = [
         }
       ]
     }
-  }
+  },
+  {
+    name: 'test',
+    entry: './src/test.js',
+    target: 'node',
+    output: {
+      path: __dirname + '/build',
+      filename: 'test-bundle.js',
+    },
+    node: {
+      fs: 'empty'
+    },
+    module: {
+      rules: [
+        {
+          test: /.jsx?$/,
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: ['es2015', 'stage-2', 'react']
+            }
+          }
+        }
+      ]
+    }
+  },
 ];

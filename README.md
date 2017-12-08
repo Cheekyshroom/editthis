@@ -1,7 +1,7 @@
 # editthis
 CMPS 115 Photoshop battle app
 
-####After cloning:
+#### After cloning:
 ```
 - Install mysql
 - npm i
@@ -10,12 +10,12 @@ CMPS 115 Photoshop battle app
 - npm run pack
 ```
 
-####To run:
+#### To run:
 ```
 npm start
 ```
 
-####To run tests:
+#### To run tests:
 ```
 npm run test
 ```

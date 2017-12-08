@@ -17,7 +17,7 @@ const ApiRoutes = Routes.filter(route => {
   return route.isApi;
 });
 
-// get image caching working
+// Fire up express and allow json request bodies
 const app = express();
 app.use(BodyParser.json({limit: '50mb'}));
 app.set('views', __dirname + '/pages');

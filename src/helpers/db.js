@@ -23,12 +23,14 @@ const query = (connection, query) => {
   });
 };
 
-const initialize = () => {
+const initialize = (debug = true) => {
   const Db = connect();
   const initial = fs.readFileSync('initial.sql', 'utf8');
   Db.connect(err => {
     query(Db, initial).then(results => {
-      console.log('Initial payload  got ', results);
+      if (debug) {
+        console.log('Initial payload  got ', results);
+      }
     });
   });
   return {
