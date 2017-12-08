@@ -12,7 +12,7 @@ class Sheet extends React.Component {
     this.args = {actions:[],
                  dragging: false,
                  latestActionNum: -1,
-                 thickns: this.props.thickns,
+                 thickness: this.props.thickness,
                  natWidth:0,
                  natHeight:0,
                  width:0,
@@ -81,22 +81,20 @@ class Sheet extends React.Component {
 
   handleMouseUp(){
     this.args.dragging = false;
-    if(this.props.toolNum == 2){
-      this.args.actions[this.args.actions.length-1].type = 'lasso';
-      this.draw(this.args.context, this.args.actions);
-    }
+    this.draw(this.args.context, this.args.actions);
   }
 
-  dot(x, y, context, color){
+  dot(x, y, context, color, thickness){
     //console.log("dot");
     //console.log("color   " + color);
     context.beginPath();
-    context.arc(x, y, this.args.thickns/2, 0, 2 * Math.PI);
+    context.arc(x, y, thickness/2, 0, 2 * Math.PI);
     context.fillStyle = color;
     context.fill();
   }
 
   drawBase(args){
+     args.context.clearRect(0, 0, args.canvas.width, args.canvas.height);
      args.context.drawImage(
         args.image,
         0,0,args.natWidth,args.natHeight,
@@ -106,14 +104,14 @@ class Sheet extends React.Component {
 
   //draws the image with lines
   draw(context, actions){
-    console.log("main draw function");
-    for(let i =0;i<actions.length;i++){
-      console.log(actions[i]);
-    }
+    // console.log("main draw function");
+    // for(let i =0;i<actions.length;i++){
+    //   console.log(actions[i]);
+    // }
     this.drawBase(this.args);
     if(this.args.latestActionNum>-1){
-            let actionNum = 0;
-      for(actionNum; actionNum<this.args.latestActionNum; actionNum++){
+      let actionNum = 0;
+      for(actionNum; actionNum<=this.args.latestActionNum; actionNum++){
         if(actions[actionNum].type == 'line'){
           pen.drawSingleLine(actions[actionNum], context, this);
         }
